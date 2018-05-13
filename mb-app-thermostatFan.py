@@ -13,22 +13,16 @@ action = False
 timeCompare = 0
 fanSpeedConv = 204 #1023 / fanSpeed convert the 25 user selected fan speeds to the 0-1023 values of the pin voltage signals
 fanSpeedAnalog = fanSpeed * fanSpeedConv
+maxSpeed = 4
 
 #List of pin positions for the fan speed
-
 powerImg1 = Image("00000:00000:00000:00000:99999")
 powerImg2 = Image("00000:00000:00000:99999:99999")
 powerImg3 = Image("00000:00000:99999:99999:99999")
 powerImg4 = Image("00000:99999:99999:99999:99999")
 powerImg5 = Image("99999:99999:99999:99999:99999")
 
-powerImgs = [
-    powerImg1,
-    powerImg2,
-    powerImg3,
-    powerImg4,
-    powerImg5
-]
+powerImgs = (powerImg1,powerImg2,powerImg3,powerImg4,powerImg5)
 
 #APP ULTILITY FUNCTIONS
 
@@ -127,11 +121,13 @@ while True:
 			fanOnTemp = increaseFanOnTemp(fanOnTemp, maxTemp, minTemp)
 			display.scroll(str(fanOnTemp))
 			action = True
-		elif accelerometer.was_gesture('left'):
-			fanSpeed = decreaseFanSpeed(fanSpeed)
-			fanSpeedAnalog = calcFanSpeedAnalog(fanSpeed, fanSpeedConv)
-			action = True
-		elif accelerometer.was_gesture('right'):
-			fanSpeed = increaseFanSpeed(fanSpeed)
-			fanSpeedAnalog = calcFanSpeedAnalog(fanSpeed, fanSpeedConv)
-			action = True
+		else:
+			while pin2.is_touched():
+				if fanSpeed < maxSpeed:
+				    fanSpeed += 1
+				else:
+				    fanSpeed = 0
+				display.show(powerImgs[fanSpeed])
+				fanSpeedAnalog = calcFanSpeedAnalog(fanSpeed, fanSpeedConv)
+				sleep(400)
+				action = True

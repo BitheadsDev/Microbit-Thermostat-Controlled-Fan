@@ -4,6 +4,11 @@
 
 To control a fan once the Micro:bit temperature sensor is above a user selected temperature
 
+## View Videos
+
+* Part one – showing the fan in action: https://www.youtube.com/watch?v=0b-i0Yfr5sA
+* Part two – showing how to construct the circuit: https://www.youtube.com/watch?v=7HUZakzsjN4
+
 ## Details and controls
 
 * The user can select the temperature that the fan will be active above by using the Micro:bit buttons
@@ -37,30 +42,24 @@ To control a fan once the Micro:bit temperature sensor is above a user selected 
 ```
 setTemp:
     if B was pressed:
-        increment (+=1) fanOnTemp by 1 up to 30
+        increment (+=1) fanOnTemp by 1
     else if A was pressed:
-        decrement (-=1) fanOnTemp by 1 down to 5 degrees
+        decrement (-=1) fanOnTemp by 1
 
-    if no buttons have been pressed for 3000 seconds:
+    if no buttons have been pressed for 2000 seconds:
         Call: fan
 
 fan:
     if temperature >= fanOnTemp:
-        if start:
-            Supply power 50% of the time to a pin (this is pulse width modulation as the pin is either on or off rather than supplying 50% power)
-
-            Light up half the LEDs left to right top to bottom (rounding down) to represent half power
-        else if B was pressed:
-            increment (+=1) fanOnTemp by 1 up to 30
-        else if A was pressed:
-            decrement (-=1) fanOnTemp by 1 down to 5 degrees
-        else if tilt right:
-            Increment supplied power to pin to increase fan speed up to power 100% of the time
-            show more lights
-
-            Increase amount of lit LEDs up until all 25 LEDs represents 100% powered
-        elseif tilt left:
-            decrement supplied power to pin to decrease fan speed down to 0
-
-            Decrease amount of lit LEDs until 0 LEDs represents 0% powered
+        if temperature >= fanOnTemp:
+            Supply on signal to pin0 x/5 max value amount of times (this is pulse width modulation as the pin is either on or off)
+            Light up the LEDs 3 rows from the bottom to represent x/5 power
+    if B was pressed:
+        increment (+=1) fanOnTemp by 1
+    else if A was pressed:
+        decrement (-=1) fanOnTemp by 1
+    else:
+        while pin2 is touched:
+            Increment FanSpeed up to 5 and then cycle to 1
+            Show x/5 rows of LEDs lit up from the bottom
 ```
