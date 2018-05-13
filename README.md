@@ -9,6 +9,10 @@ To control a fan once the Micro:bit temperature sensor is above a user selected 
 * Part one – showing the fan in action: https://www.youtube.com/watch?v=0b-i0Yfr5sA
 * Part two – showing how to construct the circuit: https://www.youtube.com/watch?v=7HUZakzsjN4
 
+## View the circuit
+
+There is a png and a Fritz file included in this repo that illutrates how the circuit was put together.
+
 ## Details and controls
 
 * The user can select the temperature that the fan will be active above by using the Micro:bit buttons
@@ -63,3 +67,8 @@ fan:
             Increment FanSpeed up to 5 and then cycle to 1
             Show x/5 rows of LEDs lit up from the bottom
 ```
+
+## Possible extensions
+
+* Hooking up an external thermostat to get a more accurate temperature reading.
+* Alternatively, use two or more Microbits to communicate through the radio function their temperatures and get an average temperature over an area.
