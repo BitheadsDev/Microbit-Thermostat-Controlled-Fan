@@ -36,9 +36,6 @@ def ifWait(timeCompare, wait):
 	else:
 		return False
 
-def setTimeCompare(timeCompare):
-	timeCompare = running_time()
-
 def increaseFanOnTemp(fanOnTemp, maxTemp, minTemp):
 	if fanOnTemp <= maxTemp:
 		fanOnTemp += 1
